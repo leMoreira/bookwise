@@ -13,18 +13,12 @@ $validacao= Validacao::validar([
 ], $_POST);
   
 if($validacao->naoPassou()){
-    $_SESSION['validacoes'] = $validacao->validacoes;
+   
     header('location: /login');
     exit();
 }
 
-if(sizeof($validacoes) > 0){
 
-    $_SESSION['validacoes'] = $validacoes;
-
-   header('location: /login');
-    exit();
-}
 
     $database->query(
     query: "INSERT INTO usuarios (nome, email, senha) 
