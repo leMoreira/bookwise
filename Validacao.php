@@ -70,11 +70,7 @@ class Validacao{
                         $validacao->$regra($regraAr, $campo, $valorDoCampo);
                         
                         
-                    }
-                    
-                    
-                    
-                    else {
+                    }else {
                         $validacao->$regra($campo, $valorDoCampo);
                     }
                         
@@ -111,7 +107,21 @@ class Validacao{
             $this->validacoes[] = "O $campo precisa ter no mínimo de $min caracteres.";
         }
     }
+
+
+    private function max($max, $campo, $valor){
+
+        if(strlen($valor) > $max){
+            $this->validacoes[] = ") $campo precisa ter no máximo de $max caracteres";
+        }
+    }
   
+    private function strong($campo, $valor){
+
+        if(! strpbrk($valor, '*!%ˆ!@#$&()_-[/];.')) {
+            $this->validacoes[] = "O $campo precisa ter um caracter especial nela";
+           }
+    }
 
 
     public function naoPassou() {
