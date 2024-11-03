@@ -30,4 +30,4 @@ return $prepare;
 
 }
 
-$database = new Database($config['database']);
+$database = new Database(config('database'));

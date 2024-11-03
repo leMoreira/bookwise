@@ -47,7 +47,7 @@ if(!str_contains($senha, '*')) {
 
 class Validacao{
 
-    public $validacoes;
+    public $validacoes =[];
 
     public static function validar($regras, $dados) 
     {
@@ -82,9 +82,30 @@ class Validacao{
             return $validacao;
     }
 
+private function unique($tabela, $campo, $valor) 
+{
+    if(strlen($valor) == 0) {
+        return;
+    }
+
+
+    $db = new Database(config('database'));
+
+   $resultado = $db->query(query: "select * from $tabela where email = :valor",
+   params: ['valor' => $valor]
+   )->fetch();
+
+   if ($resultado){
+    $this->validacoes [] = "O $campo já está sendo usado.";
+   }
+
+
+
+}
+
     private function required($campo, $valor){
         if(strlen($valor) == 0) {
-            $this->validacoes [] = "O $campo é obrigatório.";
+            $this->validacoes [] = "O(A) $campo é obrigatório.";
             }
     }
 
@@ -112,7 +133,7 @@ class Validacao{
     private function max($max, $campo, $valor){
 
         if(strlen($valor) > $max){
-            $this->validacoes[] = ") $campo precisa ter no máximo de $max caracteres";
+            $this->validacoes[] = "O $campo precisa ter no máximo de $max caracteres";
         }
     }
   
@@ -124,9 +145,19 @@ class Validacao{
     }
 
 
-    public function naoPassou() {
+    public function naoPassou($nomeCustomizado = null) {
 
-        $_SESSION['validacoes'] = $this->validacoes;
+$chave = 'validacoes';
+
+if ($nomeCustomizado) {
+    $chave .= '_'.$nomeCustomizado;
+}
+
+
+        // Adicionar valor
+        flash()->push($chave, $this->validacoes);
+
+        //$_SESSION['validacoes'] = $this->validacoes;
         return sizeof($this->validacoes) > 0;
     }
 

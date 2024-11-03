@@ -2,7 +2,24 @@
 
 <div class="border border-stone-700 rounded">
 <h1 class="border-b border-stone-700 text-stone-400 font-bold px-4 py-2">Login</h1>
-    <form action="" method="post" class="px-4 py-4 space-y-4">
+    <form  method="post" class="px-4 py-4 space-y-4">
+
+    <?php if ( $validacoes = flash()->get('validacoes_login')) : ?>
+    <div id="msgerro" class="border-red-800 bg-red-900 
+    text-red-400 px-4 py-2 
+    rounded-md border-2 text-sm font-bold">
+
+    <ul>
+        <li>Dê uma olhada nos erro(s)</li>
+        <?php foreach ($validacoes as $validacao): ?> 
+           <li><?= $validacao; ?></li>     
+        <?php endforeach; ?> 
+    </ul>
+
+    </div>    
+<?php endif; ?> 
+
+
         <div class="flex flex-col">
             <label for="" class="text-stone-400 mb-1 ">E-mail</label>
             <input type="email"
@@ -14,8 +31,7 @@
                     focus:outline-none 
                     px-2 
                     py-1"
-                
-                    required 
+
                     name="email" 
                     id="" />
         </div>   
@@ -32,7 +48,7 @@
                     px-2 
                     py-1"
                    
-                    name="password" 
+                    name="senha" 
                     id="" />
         </div> 
 
@@ -47,21 +63,16 @@
 <h1 class="border-b border-stone-700 text-stone-400 font-bold px-4 py-2">Registro</h1>
     <form action="/registrar" method="post" class="px-4 py-4 space-y-4">
 
-<?php if ( isset($mensagem) && strlen($mensagem )): ?>
-    <div id="msgsuccess" class="border-green-800 bg-green-900 text-green-400 px-4 py-2 
-    rounded-md border-2 px-1 text-sm font-bold">
-        <?= $mensagem; ?>
-    </div>    
-<?php endif; ?> 
 
-<?php if ( isset($_SESSION['validacoes']) && sizeof($_SESSION['validacoes'])): ?>
+
+<?php if ( $validacoes = flash()->get('validacoes_registrar')) : ?>
     <div id="msgerro" class="border-red-800 bg-red-900 
     text-red-400 px-4 py-2 
     rounded-md border-2 text-sm font-bold">
 
     <ul>
         <li>Dê uma olhada nos erro(s)</li>
-        <?php foreach ($_SESSION['validacoes'] as $validacao): ?> 
+        <?php foreach ($validacoes as $validacao): ?> 
            <li><?= $validacao; ?></li>     
         <?php endforeach; ?> 
     </ul>
