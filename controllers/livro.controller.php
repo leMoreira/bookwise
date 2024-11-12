@@ -1,9 +1,8 @@
 <?php
 
-$livro = $database
-        ->query("select * from livros where id = :id", Livro::class, ['id'=>$_GET['id']])
-        ->fetch();
+$livro = Livro::get($_GET['id']);
 
+      
 
 $avaliacoes = $database->query("select * from avaliacoes where livro_id = :id ORDER BY id DESC", Avaliacao::class, ['id'=> $_GET['id']])
 ->fetchAll();

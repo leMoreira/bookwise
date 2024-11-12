@@ -13,7 +13,9 @@
             <div class="font-bold text-xl tracking-wide">Book Wise</div>
             <ul class="flex space-x-4 font-bold">
                 <li><a href="/" class="text-lime-500">Explorar</a></li>
+                <?php if (auth()): ?>
                 <li><a href="/meus-livros" class="hover:underline">Meus Livros</a></li>
+                <?php endif; ?>
             </ul>
 
             <ul>
@@ -27,7 +29,7 @@
     </header>
 
 
-<main class="mx-auto max-w-screen-lg space-y-6">
+<main class="mx-auto max-w-screen-lg space-y-6 mt-6">
 <?php if($mensagem = flash()->get('mensagem')): ?>
     <div id="msgerro" class="border-green-800 bg-green-900 
     text-green-400 px-4 py-2 
