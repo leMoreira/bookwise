@@ -8,6 +8,7 @@ public $descricao;
 public $ano_de_lancamento;
 public $nro_paginas;
 public $usuario_id;
+public $imagem;
 
 public $nota_avaliacao;
 public $count_avaliacoes;
@@ -22,6 +23,7 @@ public function query($where, $params){
     l.autor,
     l.descricao,
     l.ano_de_lancamento,
+    l.imagem,
      ifnull(round(sum(a.nota) / 5.0),0) as nota_avaliacao,
     ifnull(count (a.id),0) as count_avaliacoes
 from
@@ -33,7 +35,8 @@ group by
     l.titulo,
     l.autor,
     l.descricao,
-    l.ano_de_lancamento", self::class, $params);
+    l.ano_de_lancamento,
+    l.imagem", self::class, $params);
 }
 
 
